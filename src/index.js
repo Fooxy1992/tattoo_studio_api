@@ -1,17 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from "react";
+import ClientRegistrationForm from "/xampp/htdocs/tattoo_studio_api/src/components/RegistrationForm/ClientRegistrationForm";
+import StudioOwnerRegistrationForm from "/xampp/htdocs/tattoo_studio_api/src/components/RegistrationForm/StudioOwnerRegistrationForm";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+function App() {
+  const [userType, setUserType] = useState("");
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  const handleUserTypeSelection = (type) => {
+    setUserType(type);
+  };
+
+  return (
+    <div>
+      <h1>Welcome to the Tattoo Studio App! 🤘</h1>
+      {!userType && (
+        <div>
+          <p>Please select your registration type:</p>
+          <select onChange={(e) => handleUserTypeSelection(e.target.value)}>
+            <option value="">Select user type</option>
+            <option value="client">Client</option>
+            <option value="studioOwner">Studio Owner</option>
+          </select>
+        </div>
+      )}
+      {userType === "client" && <ClientRegistrationForm />}
+      {userType === "studioOwner" && <StudioOwnerRegistrationForm />}
+    </div>
+  );
+}
+
+export default App;

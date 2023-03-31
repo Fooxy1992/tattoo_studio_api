@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ClientRegistrationForm from "/xampp/htdocs/tattoo_studio_api/src/components/RegistrationForm/ClientRegistrationForm";
+import StudioOwnerRegistrationForm from "/xampp/htdocs/tattoo_studio_api/src/components/RegistrationForm/StudioOwnerRegistrationForm";
 
 function App() {
+  const [userType, setUserType] = useState("");
+
+  const handleUserTypeSelection = (type) => {
+    setUserType(type);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Welcome to the Tattoo Studio App! 🤘</h1>
+      {!userType && (
+        <div>
+          <p>Please select your registration type:</p>
+          <button onClick={() => handleUserTypeSelection("client")}>
+            Client
+          </button>
+          <button onClick={() => handleUserTypeSelection("studioOwner")}>
+            Studio Owner
+          </button>
+        </div>
+      )}
+      {userType === "client" && <ClientRegistrationForm />}
+      {userType === "studioOwner" && <StudioOwnerRegistrationForm />}
     </div>
   );
 }
